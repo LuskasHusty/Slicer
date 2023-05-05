@@ -105,14 +105,21 @@
       <item row="5" column="0">
        <widget class="QLabel" name="label_2">
         <property name="text">
-         <string>PAth</string>
+         <string>Path</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0">
+       <widget class="QLineEdit" name="PathLineEdit">
+        <property name="text">
+         <string/>
         </property>
        </widget>
       </item>
       <item row="5" column="1">
-       <widget class="QLineEdit" name="PathLineEdit">
+       <widget class="QPushButton" name="customEditorPathPushButton">
         <property name="text">
-         <string/>
+         <string>Select Editor</string>
         </property>
        </widget>
       </item>

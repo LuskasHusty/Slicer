@@ -57,6 +57,7 @@ protected slots:
   void onFontChanged(const QFont& font);
   void onConsoleLogLevelChanged(const QString& levelStr);
   void clickedButton(bool value);
+  void changeCustomEditorPath();
 
 signals:
   void consoleLogLevelChanged(const QString&);

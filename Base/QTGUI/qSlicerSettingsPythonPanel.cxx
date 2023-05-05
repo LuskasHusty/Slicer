@@ -21,6 +21,7 @@
 // Qt includes
 #include <QDebug>
 #include <QPointer>
+#include <QFileDialog>
 
 // CTK includes
 #include <ctkPythonConsole.h>
@@ -91,6 +92,9 @@ void qSlicerSettingsPythonPanelPrivate::init()
                    q, SLOT(onConsoleLogLevelChanged(QString)));
   QObject::connect(this->pushButtonTeste, SIGNAL(toggled(bool)),
                    q, SLOT(clickedButton(bool)));
+  QObject::connect(this->customEditorPathPushButton, SIGNAL(clicked()),
+                   q, SLOT(changeCustomEditorPath()));
+                  
   /*
   
   QObject::connect(this->CustomEditCheckBox, SIGNAL(toggled(bool))
@@ -118,6 +122,9 @@ void qSlicerSettingsPythonPanelPrivate::init()
 
   q->registerProperty("Python/CustomEdit", this->CustomEditorCheckbox, 
     "checked", SIGNAL(toggled(bool)));
+
+  q->registerProperty("Python/CustomEditPath", this->customEditorPathPushButton, 
+    "text", SIGNAL(clicked()));
 
 }
 
@@ -186,4 +193,18 @@ void qSlicerSettingsPythonPanel::clickedButton(bool value)
   {
     d->pushButtonTeste->setText("Good bye, World!");
   }
+}
+
+void qSlicerSettingsPythonPanel::changeCustomEditorPath()
+{
+  Q_D(qSlicerSettingsPythonPanel);
+  QString fileName = QFileDialog::getOpenFileName(this, tr("Select Editor"), "/", tr("*"));
+  
+  if(fileName == "")
+  {
+    d->customEditorPathPushButton->setText(tr("Select Editor"));  
+    return;
+  }
+  
+  d->customEditorPathPushButton->setText(fileName);
 }
