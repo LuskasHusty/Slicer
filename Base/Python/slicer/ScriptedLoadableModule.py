@@ -225,7 +225,18 @@ class ScriptedLoadableModuleWidget:
 
     def onEditSource(self):
         filePath = slicer.util.modulePath(self.moduleName)
-        qt.QDesktopServices.openUrl(qt.QUrl("file:///" + filePath, qt.QUrl.TolerantMode))
+        #qt.QDesktopServices.openUrl(qt.QUrl("vscode://file/" + filePath, qt.QUrl.TolerantMode))
+        
+        check = slicer.util.settingsValue("Python/CustomEdit", False, converter=slicer.util.toBool)
+        
+        call = ""
+        if os.name == "posix":
+            call = "open "
+            
+        if not check:
+            os.system(call + filePath)
+        else:
+            os.system("code " + filePath)
 
 
 class ScriptedLoadableModuleLogic:

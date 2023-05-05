@@ -88,7 +88,16 @@ void qSlicerSettingsPythonPanelPrivate::init()
   QObject::connect(this->ConsoleFontButton, SIGNAL(currentFontChanged(QFont)),
                    q, SLOT(onFontChanged(QFont)));
   QObject::connect(this->ConsoleLogLevelComboBox, SIGNAL(currentIndexChanged(QString)),
-    q, SLOT(onConsoleLogLevelChanged(QString)));
+                   q, SLOT(onConsoleLogLevelChanged(QString)));
+  QObject::connect(this->pushButtonTeste, SIGNAL(toggled(bool)),
+                   q, SLOT(clickedButton(bool)));
+  /*
+  
+  QObject::connect(this->CustomEditCheckBox, SIGNAL(toggled(bool))
+                   q, SLOT());
+  QObject::connect(this->PathLineEdit, SIGNAL()
+                   q, SLOT());
+  */
 
   //
   // Register settings with their corresponding widgets
@@ -106,6 +115,9 @@ void qSlicerSettingsPythonPanelPrivate::init()
     "consoleLogLevel", SIGNAL(consoleLogLevelChanged(QString)));
   QObject::connect(this->ConsoleLogLevelComboBox, SIGNAL(currentIndexChanged(QString)),
     q, SIGNAL(consoleLogLevelChanged(QString)));
+
+  q->registerProperty("Python/CustomEdit", this->CustomEditorCheckbox, 
+    "checked", SIGNAL(toggled(bool)));
 
 }
 
@@ -160,4 +172,18 @@ void qSlicerSettingsPythonPanel::setConsoleLogLevel(const QString& text)
     }
   // default to first item if conversion fails
   d->ConsoleLogLevelComboBox->setCurrentIndex(selectedIndex);
+}
+
+// --------------------------------------------------------------------------
+void qSlicerSettingsPythonPanel::clickedButton(bool value)
+{
+  Q_D(qSlicerSettingsPythonPanel);
+  if(value)
+  {
+    d->pushButtonTeste->setText("Hello, World!");
+  }
+  else
+  {
+    d->pushButtonTeste->setText("Good bye, World!");
+  }
 }
